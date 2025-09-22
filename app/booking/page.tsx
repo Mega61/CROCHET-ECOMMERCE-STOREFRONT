@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -9,7 +10,6 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, CheckCircle, Sparkles } from "lucide-react"
-import Link from "next/link"
 
 const availableSlots = [
   { id: 1, week: "Jan 15-21, 2024", status: "available", price: 85, difficulty: "Any" },
@@ -35,7 +35,7 @@ const catalogItems = {
 export default function BookingPage() {
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null)
   const [selectedCatalogItem, setSelectedCatalogItem] = useState<string | null>(null)
-  const [step, setStep] = useState(1) // 1: Select slot, 2: Item details, 3: Checkout
+  const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -62,47 +62,31 @@ export default function BookingPage() {
   }
 
   const handleSubmit = () => {
-    // Handle booking submission
     alert("Booking submitted! You'll receive a confirmation email shortly.")
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-yellow-50">
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b-4 border-pink-200 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-pink-600 hover:text-pink-700 transition-colors">
-              ✨ Crochet Magic ✨
-            </Link>
-            <Link href="/catalog">
-              <Button variant="outline" className="border-pink-200 text-pink-600 hover:bg-pink-50 bg-transparent">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Catalog
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen">
+      <Header />
 
       <div className="container mx-auto px-4 py-8">
         {/* Progress Indicator */}
         <div className="flex items-center justify-center mb-8">
           <div className="flex items-center space-x-4">
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 1 ? "bg-pink-400 text-white" : "bg-gray-200 text-gray-500"}`}
+              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
             >
               1
             </div>
-            <div className={`w-16 h-1 ${step >= 2 ? "bg-pink-400" : "bg-gray-200"}`}></div>
+            <div className={`w-16 h-1 ${step >= 2 ? "bg-primary" : "bg-muted"}`}></div>
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 2 ? "bg-pink-400 text-white" : "bg-gray-200 text-gray-500"}`}
+              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 2 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
             >
               2
             </div>
-            <div className={`w-16 h-1 ${step >= 3 ? "bg-pink-400" : "bg-gray-200"}`}></div>
+            <div className={`w-16 h-1 ${step >= 3 ? "bg-primary" : "bg-muted"}`}></div>
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 3 ? "bg-pink-400 text-white" : "bg-gray-200 text-gray-500"}`}
+              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 3 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
             >
               3
             </div>
@@ -113,12 +97,12 @@ export default function BookingPage() {
         {step === 1 && (
           <div>
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-pink-600 mb-4">✨ Choose Your Magic Week ✨</h1>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <h1 className="text-4xl font-bold text-primary mb-4">Choose Your Magic Week</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Select a week when I'll create your chosen catalog item!
               </p>
-              <div className="mt-4 p-4 bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg max-w-md mx-auto">
-                <p className="text-sm text-pink-700 font-medium">
+              <div className="mt-4 p-4 bg-card rounded-lg max-w-md mx-auto border">
+                <p className="text-sm text-foreground font-medium">
                   <Sparkles className="w-4 h-4 inline mr-1" />
                   Catalog Item Commission: $75 base fee
                 </p>
@@ -129,44 +113,43 @@ export default function BookingPage() {
               {availableSlots.map((slot) => (
                 <Card
                   key={slot.id}
-                  className={`cursor-pointer transition-all duration-300 border-2 ${
-                    selectedSlot === slot.id
-                      ? "border-pink-400 bg-pink-50 shadow-lg"
+                  className={`cursor-pointer transition-all duration-300 border-2 ${selectedSlot === slot.id
+                      ? "border-primary bg-accent shadow-lg"
                       : slot.status === "available"
-                        ? "border-pink-200 hover:border-pink-300 hover:shadow-md"
-                        : "border-gray-200 opacity-60"
-                  } ${slot.status === "booked" ? "cursor-not-allowed" : ""}`}
+                        ? "border-border hover:border-primary/50 hover:shadow-md"
+                        : "border-border opacity-60"
+                    } ${slot.status === "booked" ? "cursor-not-allowed" : ""}`}
                   onClick={() => slot.status !== "booked" && handleSlotSelect(slot.id)}
                 >
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-pink-600 text-lg">{slot.week}</CardTitle>
+                      <CardTitle className="text-primary text-lg">{slot.week}</CardTitle>
                       <Badge
                         className={
                           slot.status === "available"
                             ? "bg-green-100 text-green-700"
                             : slot.status === "limited"
                               ? "bg-yellow-100 text-yellow-700"
-                              : "bg-gray-100 text-gray-700"
+                              : "bg-muted text-muted-foreground"
                         }
                       >
                         {slot.status === "available"
-                          ? "✨ Available"
+                          ? "Available"
                           : slot.status === "limited"
-                            ? "⚡ Limited"
-                            : "❌ Booked"}
+                            ? "Limited"
+                            : "Booked"}
                       </Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Commission Fee:</span>
-                        <span className="font-bold text-pink-600">${slot.price}</span>
+                        <span className="text-muted-foreground">Commission Fee:</span>
+                        <span className="font-bold text-primary">${slot.price}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Difficulty:</span>
-                        <span className="text-sm text-gray-700">{slot.difficulty}</span>
+                        <span className="text-muted-foreground">Difficulty:</span>
+                        <span className="text-sm">{slot.difficulty}</span>
                       </div>
                       {selectedSlot === slot.id && (
                         <div className="flex items-center justify-center mt-4">
@@ -183,9 +166,9 @@ export default function BookingPage() {
               <Button
                 onClick={handleNextStep}
                 disabled={!selectedSlot}
-                className="bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full px-8 py-3 text-lg disabled:opacity-50"
+                className="rounded-full px-8 py-3 text-lg disabled:opacity-50"
               >
-                Continue to Item Details ✨
+                Continue to Item Details
               </Button>
             </div>
           </div>
@@ -195,60 +178,57 @@ export default function BookingPage() {
         {step === 2 && (
           <div>
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-pink-600 mb-4">✨ Choose Your Catalog Item ✨</h1>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <h1 className="text-4xl font-bold text-primary mb-4">Choose Your Catalog Item</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Select from our available designs and customize the details!
               </p>
             </div>
 
             <div className="max-w-4xl mx-auto space-y-8">
               {/* Catalog Item Selection */}
-              <Card className="border-2 border-pink-200 bg-white/90 backdrop-blur-sm">
+              <Card className="border-2">
                 <CardHeader>
-                  <CardTitle className="text-pink-600">Select Your Design</CardTitle>
+                  <CardTitle className="text-primary">Select Your Design</CardTitle>
                   <CardDescription>Choose from our popular catalog items</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {Object.entries(catalogItems)
-                      .filter(([key]) => key !== "custom")
-                      .map(([key, item]) => (
-                        <Card
-                          key={key}
-                          className={`cursor-pointer transition-all duration-300 border-2 ${
-                            selectedCatalogItem === key
-                              ? "border-pink-400 bg-pink-50 shadow-lg"
-                              : "border-pink-200 hover:border-pink-300 hover:shadow-md"
+                    {Object.entries(catalogItems).map(([key, item]) => (
+                      <Card
+                        key={key}
+                        className={`cursor-pointer transition-all duration-300 border-2 ${selectedCatalogItem === key
+                            ? "border-primary bg-accent shadow-lg"
+                            : "border-border hover:border-primary/50 hover:shadow-md"
                           }`}
-                          onClick={() => setSelectedCatalogItem(key)}
-                        >
-                          <div className="aspect-square relative overflow-hidden rounded-t-lg">
-                            <img
-                              src={item.image || "/placeholder.svg"}
-                              alt={item.name}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          <CardContent className="p-4">
-                            <h3 className="font-bold text-pink-600 mb-1">{item.name}</h3>
-                            <p className="text-sm text-gray-600">{item.price}</p>
-                            {selectedCatalogItem === key && (
-                              <div className="flex items-center justify-center mt-2">
-                                <CheckCircle className="w-5 h-5 text-green-500" />
-                              </div>
-                            )}
-                          </CardContent>
-                        </Card>
-                      ))}
+                        onClick={() => setSelectedCatalogItem(key)}
+                      >
+                        <div className="aspect-square relative overflow-hidden rounded-t-lg">
+                          <img
+                            src={item.image || "/placeholder.svg"}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <CardContent className="p-4">
+                          <h3 className="font-bold text-primary mb-1">{item.name}</h3>
+                          <p className="text-sm text-muted-foreground">{item.price}</p>
+                          {selectedCatalogItem === key && (
+                            <div className="flex items-center justify-center mt-2">
+                              <CheckCircle className="w-5 h-5 text-green-500" />
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
 
               {/* Contact & Customization Details */}
               {selectedCatalogItem && (
-                <Card className="border-2 border-pink-200 bg-white/90 backdrop-blur-sm">
+                <Card className="border-2">
                   <CardHeader>
-                    <CardTitle className="text-pink-600">Customization Details</CardTitle>
+                    <CardTitle className="text-primary">Customization Details</CardTitle>
                     <CardDescription>Personalize your chosen design</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
@@ -259,7 +239,6 @@ export default function BookingPage() {
                           id="name"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="border-pink-200 focus:border-pink-400"
                         />
                       </div>
                       <div>
@@ -269,7 +248,6 @@ export default function BookingPage() {
                           type="email"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="border-pink-200 focus:border-pink-400"
                         />
                       </div>
                     </div>
@@ -280,7 +258,6 @@ export default function BookingPage() {
                         id="phone"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="border-pink-200 focus:border-pink-400"
                       />
                     </div>
 
@@ -292,13 +269,12 @@ export default function BookingPage() {
                           placeholder="Pink, purple, pastel blue... or 'original colors'"
                           value={formData.colors}
                           onChange={(e) => setFormData({ ...formData, colors: e.target.value })}
-                          className="border-pink-200 focus:border-pink-400"
                         />
                       </div>
                       <div>
                         <Label htmlFor="size">Preferred Size</Label>
                         <Select onValueChange={(value) => setFormData({ ...formData, size: value })}>
-                          <SelectTrigger className="border-pink-200 focus:border-pink-400">
+                          <SelectTrigger>
                             <SelectValue placeholder="Choose size" />
                           </SelectTrigger>
                           <SelectContent>
@@ -317,7 +293,6 @@ export default function BookingPage() {
                         placeholder="Any special touches, gift wrapping, or modifications to the design?"
                         value={formData.specialRequests}
                         onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
-                        className="border-pink-200 focus:border-pink-400"
                       />
                     </div>
                   </CardContent>
@@ -325,20 +300,16 @@ export default function BookingPage() {
               )}
 
               <div className="flex justify-between">
-                <Button
-                  onClick={handlePrevStep}
-                  variant="outline"
-                  className="border-pink-200 text-pink-600 hover:bg-pink-50 bg-transparent"
-                >
+                <Button onClick={handlePrevStep} variant="outline">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Slots
                 </Button>
                 <Button
                   onClick={handleNextStep}
                   disabled={!selectedCatalogItem || !formData.name || !formData.email}
-                  className="bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full px-8 py-3"
+                  className="rounded-full px-8 py-3"
                 >
-                  Review & Confirm ✨
+                  Review & Confirm
                 </Button>
               </div>
             </div>
@@ -349,89 +320,89 @@ export default function BookingPage() {
         {step === 3 && (
           <div>
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-pink-600 mb-4">✨ Almost There! ✨</h1>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <h1 className="text-4xl font-bold text-primary mb-4">Almost There!</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Review your catalog item booking before we make it official!
               </p>
             </div>
 
             <div className="max-w-2xl mx-auto space-y-6">
               {/* Booking Summary */}
-              <Card className="border-2 border-pink-200 bg-white/90 backdrop-blur-sm">
+              <Card className="border-2">
                 <CardHeader>
-                  <CardTitle className="text-pink-600">Booking Summary</CardTitle>
+                  <CardTitle className="text-primary">Booking Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Selected Week:</span>
-                    <span className="text-pink-600 font-bold">
+                    <span className="text-primary font-bold">
                       {availableSlots.find((slot) => slot.id === selectedSlot)?.week}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Selected Item:</span>
-                    <span className="text-pink-600 font-bold">
-                      {selectedCatalogItem && catalogItems[selectedCatalogItem as keyof typeof catalogItems]?.name}
+                    <span className="text-primary font-bold">
+                      {selectedCatalogItem && catalogItems[selectedCatalogItem as unknown as keyof typeof catalogItems]?.name}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Commission Fee:</span>
-                    <span className="text-pink-600 font-bold">$75</span>
+                    <span className="text-primary font-bold">$75</span>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Project Details */}
-              <Card className="border-2 border-pink-200 bg-white/90 backdrop-blur-sm">
+              <Card className="border-2">
                 <CardHeader>
-                  <CardTitle className="text-pink-600">Project Details</CardTitle>
+                  <CardTitle className="text-primary">Project Details</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <span className="font-medium text-gray-700">Contact:</span>
-                    <p className="text-gray-600">
+                    <span className="font-medium">Contact:</span>
+                    <p className="text-muted-foreground">
                       {formData.name} - {formData.email}
                     </p>
                   </div>
                   {selectedCatalogItem && (
                     <div>
-                      <span className="font-medium text-gray-700">Item:</span>
-                      <p className="text-gray-600">
-                        {catalogItems[selectedCatalogItem as keyof typeof catalogItems]?.name}
+                      <span className="font-medium">Item:</span>
+                      <p className="text-muted-foreground">
+                        {catalogItems[selectedCatalogItem as unknown as keyof typeof catalogItems]?.name}
                       </p>
                     </div>
                   )}
                   {formData.colors && (
                     <div>
-                      <span className="font-medium text-gray-700">Colors:</span>
-                      <p className="text-gray-600">{formData.colors}</p>
+                      <span className="font-medium">Colors:</span>
+                      <p className="text-muted-foreground">{formData.colors}</p>
                     </div>
                   )}
                   {formData.size && (
                     <div>
-                      <span className="font-medium text-gray-700">Size:</span>
-                      <p className="text-gray-600 capitalize">{formData.size.replace("-", " ")}</p>
+                      <span className="font-medium">Size:</span>
+                      <p className="text-muted-foreground capitalize">{formData.size.replace("-", " ")}</p>
                     </div>
                   )}
                   {formData.specialRequests && (
                     <div>
-                      <span className="font-medium text-gray-700">Special Requests:</span>
-                      <p className="text-gray-600">{formData.specialRequests}</p>
+                      <span className="font-medium">Special Requests:</span>
+                      <p className="text-muted-foreground">{formData.specialRequests}</p>
                     </div>
                   )}
                 </CardContent>
               </Card>
 
               {/* Payment Info */}
-              <Card className="border-2 border-pink-200 bg-gradient-to-r from-pink-50 to-purple-50">
+              <Card className="border-2 bg-accent">
                 <CardContent className="pt-6">
                   <div className="text-center space-y-3">
-                    <h3 className="text-lg font-bold text-pink-600">Payment Process</h3>
-                    <p className="text-gray-700">
+                    <h3 className="text-lg font-bold text-primary">Payment Process</h3>
+                    <p className="text-muted-foreground">
                       After confirmation, I'll send you a PayPal invoice for the commission fee. Work begins once
                       payment is received!
                     </p>
-                    <div className="text-sm text-gray-600 space-y-1">
+                    <div className="text-sm text-muted-foreground space-y-1">
                       <p>• 50% deposit to start</p>
                       <p>• 50% balance on completion</p>
                       <p>• Progress photos throughout the week</p>
@@ -441,19 +412,12 @@ export default function BookingPage() {
               </Card>
 
               <div className="flex justify-between">
-                <Button
-                  onClick={handlePrevStep}
-                  variant="outline"
-                  className="border-pink-200 text-pink-600 hover:bg-pink-50 bg-transparent"
-                >
+                <Button onClick={handlePrevStep} variant="outline">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Edit Details
                 </Button>
-                <Button
-                  onClick={handleSubmit}
-                  className="bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full px-8 py-3 text-lg"
-                >
-                  ✨ Confirm Booking ✨
+                <Button onClick={handleSubmit} className="rounded-full px-8 py-3 text-lg">
+                  Confirm Booking
                 </Button>
               </div>
             </div>

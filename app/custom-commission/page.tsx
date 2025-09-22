@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -11,7 +12,6 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, CheckCircle, Upload, Sparkles } from "lucide-react"
-import Link from "next/link"
 
 const availableSlots = [
   { id: 1, week: "Jan 15-21, 2024", status: "available", price: 95, difficulty: "Any" },
@@ -24,7 +24,7 @@ const availableSlots = [
 
 export default function CustomCommissionPage() {
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null)
-  const [step, setStep] = useState(1) // 1: Select slot, 2: Custom details, 3: Checkout
+  const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -70,42 +70,27 @@ export default function CustomCommissionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-yellow-50">
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b-4 border-pink-200 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-pink-600 hover:text-pink-700 transition-colors">
-              ✨ Crochet Magic ✨
-            </Link>
-            <Link href="/">
-              <Button variant="outline" className="border-pink-200 text-pink-600 hover:bg-pink-50 bg-transparent">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen">
+      <Header />
 
       <div className="container mx-auto px-4 py-8">
         {/* Progress Indicator */}
         <div className="flex items-center justify-center mb-8">
           <div className="flex items-center space-x-4">
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 1 ? "bg-pink-400 text-white" : "bg-gray-200 text-gray-500"}`}
+              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
             >
               1
             </div>
-            <div className={`w-16 h-1 ${step >= 2 ? "bg-pink-400" : "bg-gray-200"}`}></div>
+            <div className={`w-16 h-1 ${step >= 2 ? "bg-primary" : "bg-muted"}`}></div>
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 2 ? "bg-pink-400 text-white" : "bg-gray-200 text-gray-500"}`}
+              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 2 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
             >
               2
             </div>
-            <div className={`w-16 h-1 ${step >= 3 ? "bg-pink-400" : "bg-gray-200"}`}></div>
+            <div className={`w-16 h-1 ${step >= 3 ? "bg-primary" : "bg-muted"}`}></div>
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 3 ? "bg-pink-400 text-white" : "bg-gray-200 text-gray-500"}`}
+              className={`flex items-center justify-center w-10 h-10 rounded-full ${step >= 3 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
             >
               3
             </div>
@@ -116,12 +101,12 @@ export default function CustomCommissionPage() {
         {step === 1 && (
           <div>
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-pink-600 mb-4">✨ Custom Commission Slots ✨</h1>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <h1 className="text-4xl font-bold text-primary mb-4">Custom Commission Slots</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Custom commissions require extra planning time and have a higher base fee. Select your preferred week!
               </p>
-              <div className="mt-4 p-4 bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg max-w-md mx-auto">
-                <p className="text-sm text-pink-700 font-medium">
+              <div className="mt-4 p-4 bg-card rounded-lg max-w-md mx-auto border">
+                <p className="text-sm font-medium">
                   <Sparkles className="w-4 h-4 inline mr-1" />
                   Custom Commission Fee: $95 + material costs
                 </p>
@@ -132,44 +117,43 @@ export default function CustomCommissionPage() {
               {availableSlots.map((slot) => (
                 <Card
                   key={slot.id}
-                  className={`cursor-pointer transition-all duration-300 border-2 ${
-                    selectedSlot === slot.id
-                      ? "border-pink-400 bg-pink-50 shadow-lg"
+                  className={`cursor-pointer transition-all duration-300 border-2 ${selectedSlot === slot.id
+                      ? "border-primary bg-accent shadow-lg"
                       : slot.status === "available"
-                        ? "border-pink-200 hover:border-pink-300 hover:shadow-md"
-                        : "border-gray-200 opacity-60"
-                  } ${slot.status === "booked" ? "cursor-not-allowed" : ""}`}
+                        ? "border-border hover:border-primary/50 hover:shadow-md"
+                        : "border-border opacity-60"
+                    } ${slot.status === "booked" ? "cursor-not-allowed" : ""}`}
                   onClick={() => slot.status !== "booked" && handleSlotSelect(slot.id)}
                 >
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-pink-600 text-lg">{slot.week}</CardTitle>
+                      <CardTitle className="text-primary text-lg">{slot.week}</CardTitle>
                       <Badge
                         className={
                           slot.status === "available"
                             ? "bg-green-100 text-green-700"
                             : slot.status === "limited"
                               ? "bg-yellow-100 text-yellow-700"
-                              : "bg-gray-100 text-gray-700"
+                              : "bg-muted text-muted-foreground"
                         }
                       >
                         {slot.status === "available"
-                          ? "✨ Available"
+                          ? "Available"
                           : slot.status === "limited"
-                            ? "⚡ Limited"
-                            : "❌ Booked"}
+                            ? "Limited"
+                            : "Booked"}
                       </Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Base Fee:</span>
-                        <span className="font-bold text-pink-600">${slot.price}</span>
+                        <span className="text-muted-foreground">Base Fee:</span>
+                        <span className="font-bold text-primary">${slot.price}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Complexity:</span>
-                        <span className="text-sm text-gray-700">{slot.difficulty}</span>
+                        <span className="text-muted-foreground">Complexity:</span>
+                        <span className="text-sm">{slot.difficulty}</span>
                       </div>
                       {selectedSlot === slot.id && (
                         <div className="flex items-center justify-center mt-4">
@@ -186,9 +170,9 @@ export default function CustomCommissionPage() {
               <Button
                 onClick={handleNextStep}
                 disabled={!selectedSlot}
-                className="bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full px-8 py-3 text-lg disabled:opacity-50"
+                className="rounded-full px-8 py-3 text-lg disabled:opacity-50"
               >
-                Continue to Custom Details ✨
+                Continue to Custom Details
               </Button>
             </div>
           </div>
@@ -198,16 +182,16 @@ export default function CustomCommissionPage() {
         {step === 2 && (
           <div>
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-pink-600 mb-4">✨ Bring Your Vision to Life ✨</h1>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <h1 className="text-4xl font-bold text-primary mb-4">Bring Your Vision to Life</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 The more details you provide, the better I can understand and create your dream piece!
               </p>
             </div>
 
             <div className="max-w-2xl mx-auto">
-              <Card className="border-2 border-pink-200 bg-white/90 backdrop-blur-sm">
+              <Card className="border-2">
                 <CardHeader>
-                  <CardTitle className="text-pink-600">Custom Commission Details</CardTitle>
+                  <CardTitle className="text-primary">Custom Commission Details</CardTitle>
                   <CardDescription>Help me understand your unique vision!</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -219,7 +203,6 @@ export default function CustomCommissionPage() {
                         id="name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="border-pink-200 focus:border-pink-400"
                       />
                     </div>
                     <div>
@@ -229,7 +212,6 @@ export default function CustomCommissionPage() {
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="border-pink-200 focus:border-pink-400"
                       />
                     </div>
                   </div>
@@ -240,7 +222,6 @@ export default function CustomCommissionPage() {
                       id="phone"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="border-pink-200 focus:border-pink-400"
                     />
                   </div>
 
@@ -252,7 +233,7 @@ export default function CustomCommissionPage() {
                       placeholder="Describe your custom creation in as much detail as possible. What character, animal, or object do you want? What pose or expression? Any specific features or accessories?"
                       value={formData.projectDescription}
                       onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })}
-                      className="border-pink-200 focus:border-pink-400 min-h-[120px]"
+                      className="min-h-[120px]"
                     />
                   </div>
 
@@ -264,16 +245,15 @@ export default function CustomCommissionPage() {
                       placeholder="What inspired this idea? Anime character, video game, movie, book, your own original design? Include names and specific details."
                       value={formData.inspiration}
                       onChange={(e) => setFormData({ ...formData, inspiration: e.target.value })}
-                      className="border-pink-200 focus:border-pink-400"
                     />
                   </div>
 
                   {/* Reference Images */}
                   <div>
                     <Label htmlFor="reference-images">Reference Images</Label>
-                    <div className="border-2 border-dashed border-pink-200 rounded-lg p-6 text-center">
-                      <Upload className="w-8 h-8 text-pink-400 mx-auto mb-2" />
-                      <p className="text-gray-600 mb-2">Upload reference images, sketches, or inspiration photos</p>
+                    <div className="border-2 border-dashed rounded-lg p-6 text-center">
+                      <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                      <p className="text-muted-foreground mb-2">Upload reference images, sketches, or inspiration photos</p>
                       <input
                         type="file"
                         multiple
@@ -286,12 +266,11 @@ export default function CustomCommissionPage() {
                         type="button"
                         variant="outline"
                         onClick={() => document.getElementById("file-upload")?.click()}
-                        className="border-pink-200 text-pink-600 hover:bg-pink-50"
                       >
                         Choose Files
                       </Button>
                       {formData.referenceImages.length > 0 && (
-                        <p className="text-sm text-pink-600 mt-2">{formData.referenceImages.length} file(s) selected</p>
+                        <p className="text-sm text-primary mt-2">{formData.referenceImages.length} file(s) selected</p>
                       )}
                     </div>
                   </div>
@@ -305,13 +284,12 @@ export default function CustomCommissionPage() {
                         placeholder="Specific colors, color schemes, or 'surprise me'"
                         value={formData.colors}
                         onChange={(e) => setFormData({ ...formData, colors: e.target.value })}
-                        className="border-pink-200 focus:border-pink-400"
                       />
                     </div>
                     <div>
                       <Label htmlFor="size">Preferred Size</Label>
                       <Select onValueChange={(value) => setFormData({ ...formData, size: value })}>
-                        <SelectTrigger className="border-pink-200 focus:border-pink-400">
+                        <SelectTrigger>
                           <SelectValue placeholder="Choose size" />
                         </SelectTrigger>
                         <SelectContent>
@@ -330,7 +308,7 @@ export default function CustomCommissionPage() {
                     <div>
                       <Label htmlFor="complexity">Complexity Level</Label>
                       <Select onValueChange={(value) => setFormData({ ...formData, complexity: value })}>
-                        <SelectTrigger className="border-pink-200 focus:border-pink-400">
+                        <SelectTrigger>
                           <SelectValue placeholder="How complex is this design?" />
                         </SelectTrigger>
                         <SelectContent>
@@ -344,7 +322,7 @@ export default function CustomCommissionPage() {
                     <div>
                       <Label htmlFor="budget">Budget Range</Label>
                       <Select onValueChange={(value) => setFormData({ ...formData, budget: value })}>
-                        <SelectTrigger className="border-pink-200 focus:border-pink-400">
+                        <SelectTrigger>
                           <SelectValue placeholder="What's your budget?" />
                         </SelectTrigger>
                         <SelectContent>
@@ -365,7 +343,6 @@ export default function CustomCommissionPage() {
                       placeholder="Any specific deadlines or timeline preferences?"
                       value={formData.deadline}
                       onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-                      className="border-pink-200 focus:border-pink-400"
                     />
                   </div>
 
@@ -376,27 +353,22 @@ export default function CustomCommissionPage() {
                       placeholder="Anything else I should know? Gift wrapping, special packaging, rush orders, etc."
                       value={formData.specialRequests}
                       onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
-                      className="border-pink-200 focus:border-pink-400"
                     />
                   </div>
                 </CardContent>
               </Card>
 
               <div className="flex justify-between mt-8">
-                <Button
-                  onClick={handlePrevStep}
-                  variant="outline"
-                  className="border-pink-200 text-pink-600 hover:bg-pink-50 bg-transparent"
-                >
+                <Button onClick={handlePrevStep} variant="outline">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Slots
                 </Button>
                 <Button
                   onClick={handleNextStep}
                   disabled={!formData.name || !formData.email || !formData.projectDescription}
-                  className="bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full px-8 py-3"
+                  className="rounded-full px-8 py-3"
                 >
-                  Review Commission ✨
+                  Review Commission
                 </Button>
               </div>
             </div>
@@ -407,33 +379,33 @@ export default function CustomCommissionPage() {
         {step === 3 && (
           <div>
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-pink-600 mb-4">✨ Commission Request Summary ✨</h1>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <h1 className="text-4xl font-bold text-primary mb-4">Commission Request Summary</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Review your custom commission request before submitting!
               </p>
             </div>
 
             <div className="max-w-2xl mx-auto space-y-6">
               {/* Booking Summary */}
-              <Card className="border-2 border-pink-200 bg-white/90 backdrop-blur-sm">
+              <Card className="border-2">
                 <CardHeader>
-                  <CardTitle className="text-pink-600">Commission Slot</CardTitle>
+                  <CardTitle className="text-primary">Commission Slot</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Selected Week:</span>
-                    <span className="text-pink-600 font-bold">
+                    <span className="text-primary font-bold">
                       {availableSlots.find((slot) => slot.id === selectedSlot)?.week}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Base Commission Fee:</span>
-                    <span className="text-pink-600 font-bold">
+                    <span className="text-primary font-bold">
                       ${availableSlots.find((slot) => slot.id === selectedSlot)?.price}
                     </span>
                   </div>
-                  <div className="text-sm text-gray-600 bg-pink-50 p-3 rounded-lg">
-                    <p className="font-medium text-pink-700 mb-1">Note:</p>
+                  <div className="text-sm text-muted-foreground bg-accent p-3 rounded-lg">
+                    <p className="font-medium mb-1">Note:</p>
                     <p>
                       Final price will be determined based on complexity, size, and materials needed. You'll receive a
                       detailed quote within 24 hours.
@@ -443,66 +415,66 @@ export default function CustomCommissionPage() {
               </Card>
 
               {/* Project Details */}
-              <Card className="border-2 border-pink-200 bg-white/90 backdrop-blur-sm">
+              <Card className="border-2">
                 <CardHeader>
-                  <CardTitle className="text-pink-600">Custom Commission Details</CardTitle>
+                  <CardTitle className="text-primary">Custom Commission Details</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <span className="font-medium text-gray-700">Contact:</span>
-                    <p className="text-gray-600">
+                    <span className="font-medium">Contact:</span>
+                    <p className="text-muted-foreground">
                       {formData.name} - {formData.email}
                     </p>
                   </div>
                   <div>
-                    <span className="font-medium text-gray-700">Project Description:</span>
-                    <p className="text-gray-600">{formData.projectDescription}</p>
+                    <span className="font-medium">Project Description:</span>
+                    <p className="text-muted-foreground">{formData.projectDescription}</p>
                   </div>
                   {formData.inspiration && (
                     <div>
-                      <span className="font-medium text-gray-700">Inspiration:</span>
-                      <p className="text-gray-600">{formData.inspiration}</p>
+                      <span className="font-medium">Inspiration:</span>
+                      <p className="text-muted-foreground">{formData.inspiration}</p>
                     </div>
                   )}
                   {formData.colors && (
                     <div>
-                      <span className="font-medium text-gray-700">Colors:</span>
-                      <p className="text-gray-600">{formData.colors}</p>
+                      <span className="font-medium">Colors:</span>
+                      <p className="text-muted-foreground">{formData.colors}</p>
                     </div>
                   )}
                   {formData.size && (
                     <div>
-                      <span className="font-medium text-gray-700">Size:</span>
-                      <p className="text-gray-600 capitalize">{formData.size.replace("-", " ")}</p>
+                      <span className="font-medium">Size:</span>
+                      <p className="text-muted-foreground capitalize">{formData.size.replace("-", " ")}</p>
                     </div>
                   )}
                   {formData.complexity && (
                     <div>
-                      <span className="font-medium text-gray-700">Complexity:</span>
-                      <p className="text-gray-600 capitalize">{formData.complexity.replace("-", " ")}</p>
+                      <span className="font-medium">Complexity:</span>
+                      <p className="text-muted-foreground capitalize">{formData.complexity.replace("-", " ")}</p>
                     </div>
                   )}
                   {formData.budget && (
                     <div>
-                      <span className="font-medium text-gray-700">Budget Range:</span>
-                      <p className="text-gray-600">{formData.budget}</p>
+                      <span className="font-medium">Budget Range:</span>
+                      <p className="text-muted-foreground">{formData.budget}</p>
                     </div>
                   )}
                   {formData.referenceImages.length > 0 && (
                     <div>
-                      <span className="font-medium text-gray-700">Reference Images:</span>
-                      <p className="text-gray-600">{formData.referenceImages.length} file(s) attached</p>
+                      <span className="font-medium">Reference Images:</span>
+                      <p className="text-muted-foreground">{formData.referenceImages.length} file(s) attached</p>
                     </div>
                   )}
                 </CardContent>
               </Card>
 
               {/* Process Info */}
-              <Card className="border-2 border-pink-200 bg-gradient-to-r from-pink-50 to-purple-50">
+              <Card className="border-2 bg-accent">
                 <CardContent className="pt-6">
                   <div className="text-center space-y-3">
-                    <h3 className="text-lg font-bold text-pink-600">Custom Commission Process</h3>
-                    <div className="text-sm text-gray-700 space-y-2 text-left max-w-md mx-auto">
+                    <h3 className="text-lg font-bold text-primary">Custom Commission Process</h3>
+                    <div className="text-sm space-y-2 text-left max-w-md mx-auto">
                       <p>• I'll review your request and send a detailed quote within 24 hours</p>
                       <p>• Once approved, 50% deposit secures your slot</p>
                       <p>• I'll send progress photos throughout the creation process</p>
@@ -514,19 +486,12 @@ export default function CustomCommissionPage() {
               </Card>
 
               <div className="flex justify-between">
-                <Button
-                  onClick={handlePrevStep}
-                  variant="outline"
-                  className="border-pink-200 text-pink-600 hover:bg-pink-50 bg-transparent"
-                >
+                <Button onClick={handlePrevStep} variant="outline">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Edit Details
                 </Button>
-                <Button
-                  onClick={handleSubmit}
-                  className="bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full px-8 py-3 text-lg"
-                >
-                  ✨ Submit Commission Request ✨
+                <Button onClick={handleSubmit} className="rounded-full px-8 py-3 text-lg">
+                  Submit Commission Request
                 </Button>
               </div>
             </div>

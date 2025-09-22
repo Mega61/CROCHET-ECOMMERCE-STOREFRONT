@@ -1,3 +1,4 @@
+import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -85,31 +86,14 @@ const categories = [
 
 export default function CatalogPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-yellow-50">
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b-4 border-pink-200 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-pink-600 hover:text-pink-700 transition-colors">
-              ✨ Crochet Magic ✨
-            </Link>
-            <div className="flex items-center gap-4">
-              <Link href="/booking" className="text-pink-600 hover:text-pink-700 font-medium">
-                My Bookings
-              </Link>
-              <Button className="bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full px-6">
-                Book a Slot
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen">
+      <Header />
 
       <div className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-pink-600 mb-4 text-balance">✨ Magical Crochet Catalog ✨</h1>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto text-pretty">
+          <h1 className="text-5xl font-bold text-primary mb-4 text-balance">Magical Crochet Catalog</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
             Discover all the adorable crochet creations I can bring to life for you! Each piece is lovingly handmade
             with premium yarn and endless care.
           </p>
@@ -121,11 +105,7 @@ export default function CatalogPage() {
             <Button
               key={category}
               variant={category === "All" ? "default" : "outline"}
-              className={`rounded-full px-6 py-2 font-medium transition-all ${
-                category === "All"
-                  ? "bg-gradient-to-r from-pink-400 to-purple-400 text-white hover:from-pink-500 hover:to-purple-500"
-                  : "border-pink-200 text-pink-600 hover:bg-pink-50 hover:border-pink-300"
-              }`}
+              className="rounded-full px-6 py-2 font-medium transition-all"
             >
               {category}
             </Button>
@@ -137,7 +117,7 @@ export default function CatalogPage() {
           {catalogItems.map((item) => (
             <Card
               key={item.id}
-              className="group hover:shadow-2xl transition-all duration-300 border-2 border-pink-100 hover:border-pink-300 bg-white/90 backdrop-blur-sm overflow-hidden"
+              className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 overflow-hidden"
             >
               <div className="relative">
                 <img
@@ -149,24 +129,24 @@ export default function CatalogPage() {
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="bg-white/80 hover:bg-white text-pink-600 rounded-full p-2"
+                    className="bg-background/80 hover:bg-background text-primary rounded-full p-2"
                   >
                     <Heart className="w-4 h-4" />
                   </Button>
                 </div>
-                <Badge className="absolute top-3 left-3 bg-gradient-to-r from-pink-400 to-purple-400 text-white">
+                <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground">
                   {item.category}
                 </Badge>
               </div>
 
               <CardHeader>
-                <CardTitle className="text-pink-600 text-xl">{item.name}</CardTitle>
-                <CardDescription className="text-gray-600">{item.description}</CardDescription>
+                <CardTitle className="text-primary text-xl">{item.name}</CardTitle>
+                <CardDescription>{item.description}</CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-pink-600">{item.price}</span>
+                  <span className="text-2xl font-bold text-primary">{item.price}</span>
                   <div className="flex items-center gap-1 text-yellow-500">
                     <Star className="w-4 h-4 fill-current" />
                     <Star className="w-4 h-4 fill-current" />
@@ -177,11 +157,11 @@ export default function CatalogPage() {
                 </div>
 
                 <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-1 text-gray-600">
+                  <div className="flex items-center gap-1 text-muted-foreground">
                     <Sparkles className="w-4 h-4" />
                     <span>{item.difficulty}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-gray-600">
+                  <div className="flex items-center gap-1 text-muted-foreground">
                     <Clock className="w-4 h-4" />
                     <span>
                       {item.timeSlots} week{typeof item.timeSlots === "number" && item.timeSlots > 1 ? "s" : ""}
@@ -190,11 +170,11 @@ export default function CatalogPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-700">What's included:</p>
-                  <ul className="text-sm text-gray-600 space-y-1">
+                  <p className="text-sm font-medium">What's included:</p>
+                  <ul className="text-sm text-muted-foreground space-y-1">
                     {item.features.map((feature, index) => (
                       <li key={index} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 bg-pink-400 rounded-full"></span>
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                         {feature}
                       </li>
                     ))}
@@ -204,8 +184,8 @@ export default function CatalogPage() {
 
               <CardFooter>
                 <Link href={`/booking?item=${item.id}`} className="w-full">
-                  <Button className="w-full bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full py-3 text-lg transition-all duration-300 hover:shadow-lg">
-                    ✨ Book This Creation ✨
+                  <Button className="w-full rounded-full py-3 text-lg transition-all duration-300 hover:shadow-lg">
+                    Book This Creation
                   </Button>
                 </Link>
               </CardFooter>
@@ -214,14 +194,14 @@ export default function CatalogPage() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16 p-8 bg-gradient-to-r from-pink-100 to-purple-100 rounded-3xl border-2 border-pink-200">
-          <h2 className="text-3xl font-bold text-pink-600 mb-4">Don't see what you're looking for?</h2>
-          <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">
+        <div className="text-center mt-16 p-8 bg-card rounded-3xl border-2">
+          <h2 className="text-3xl font-bold text-primary mb-4">Don't see what you're looking for?</h2>
+          <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
             I love creating custom pieces! Send me your ideas and let's bring your dream crochet creation to life.
           </p>
           <Link href="/booking?item=custom">
-            <Button className="bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full px-8 py-3 text-lg">
-              ✨ Request Custom Design ✨
+            <Button className="rounded-full px-8 py-3 text-lg">
+              Request Custom Design
             </Button>
           </Link>
         </div>
