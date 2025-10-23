@@ -61,3 +61,9 @@ Thumbs.db
 logs/
 
 /ia-docs
+
+# Hypr Framework
+# Keep assessment templates tracked, ignore generated agents
+.hypr/agents/
+features/*.md
+!features/README.md

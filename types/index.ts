@@ -7,6 +7,13 @@ export interface Product {
   description?: string
   rating?: number
   reviews?: number
+  images?: string[]
+  materials?: string[]
+  dimensions?: string
+  estimatedTimeHours?: number
+  difficulty?: string
+  features?: string[]
+  tags?: string[]
 }
 
 export interface TimeSlot {

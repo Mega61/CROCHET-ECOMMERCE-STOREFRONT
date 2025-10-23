@@ -182,10 +182,15 @@ export default function CatalogPage() {
                 </div>
               </CardContent>
 
-              <CardFooter>
-                <Link href={`/booking?item=${item.id}`} className="w-full">
+              <CardFooter className="flex gap-2">
+                <Link href={`/catalog/${item.id}`} className="flex-1">
+                  <Button variant="outline" className="w-full rounded-full py-3 text-lg transition-all duration-300 hover:shadow-lg">
+                    View Details
+                  </Button>
+                </Link>
+                <Link href={`/booking?item=${item.id}`} className="flex-1">
                   <Button className="w-full rounded-full py-3 text-lg transition-all duration-300 hover:shadow-lg">
-                    Book This Creation
+                    Book Now
                   </Button>
                 </Link>
               </CardFooter>

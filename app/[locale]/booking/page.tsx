@@ -40,6 +40,11 @@ export default function BookingPage() {
     name: "",
     email: "",
     phone: "",
+    street: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
     colors: "",
     size: "",
     specialRequests: "",
@@ -261,6 +266,65 @@ export default function BookingPage() {
                       />
                     </div>
 
+                    {/* Delivery Address Section */}
+                    <div className="pt-4 border-t">
+                      <h3 className="text-lg font-semibold mb-4">Delivery Address</h3>
+
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="street">Street Address *</Label>
+                          <Input
+                            id="street"
+                            placeholder="123 Main Street, Apt 4B"
+                            value={formData.street}
+                            onChange={(e) => setFormData({ ...formData, street: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="city">City *</Label>
+                            <Input
+                              id="city"
+                              placeholder="New York"
+                              value={formData.city}
+                              onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="state">State/Province *</Label>
+                            <Input
+                              id="state"
+                              placeholder="NY"
+                              value={formData.state}
+                              onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="zipCode">ZIP/Postal Code *</Label>
+                            <Input
+                              id="zipCode"
+                              placeholder="10001"
+                              value={formData.zipCode}
+                              onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="country">Country *</Label>
+                            <Input
+                              id="country"
+                              placeholder="United States"
+                              value={formData.country}
+                              onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="colors">Color Preferences</Label>
@@ -306,7 +370,16 @@ export default function BookingPage() {
                 </Button>
                 <Button
                   onClick={handleNextStep}
-                  disabled={!selectedCatalogItem || !formData.name || !formData.email}
+                  disabled={
+                    !selectedCatalogItem ||
+                    !formData.name ||
+                    !formData.email ||
+                    !formData.street ||
+                    !formData.city ||
+                    !formData.state ||
+                    !formData.zipCode ||
+                    !formData.country
+                  }
                   className="rounded-full px-8 py-3"
                 >
                   Review & Confirm
@@ -390,6 +463,20 @@ export default function BookingPage() {
                       <p className="text-muted-foreground">{formData.specialRequests}</p>
                     </div>
                   )}
+                </CardContent>
+              </Card>
+
+              {/* Delivery Address */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="text-primary">Delivery Address</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <p className="text-muted-foreground">{formData.street}</p>
+                  <p className="text-muted-foreground">
+                    {formData.city}, {formData.state} {formData.zipCode}
+                  </p>
+                  <p className="text-muted-foreground">{formData.country}</p>
                 </CardContent>
               </Card>
 
