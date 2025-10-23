@@ -1,0 +1,84 @@
+{
+  "header": {
+    "logo": "StitchSlots",
+    "nav": {
+      "catalog": "Catálogo de Crochet",
+      "booking": "Reservar Espacio",
+      "orders": "Mis Encargos",
+      "about": "Acerca de"
+    },
+    "search": "Buscar patrones de crochet..."
+  },
+  "hero": {
+    "title": "Magia de Crochet Hecha a Mano",
+    "subtitle": "Reserva Tu Espacio para Creaciones Kawaii Personalizadas",
+    "cta": {
+      "book": "Reserva Tu Espacio Ahora",
+      "browse": "Ver Catálogo"
+    }
+  },
+  "featured": {
+    "title": "Creaciones Destacadas",
+    "subtitle": "Explora nuestras piezas hechas a mano más queridas"
+  },
+  "catalog": {
+    "title": "Catálogo de Crochet",
+    "subtitle": "Navegar por Categoría"
+  },
+  "slots": {
+    "title": "Espacios Disponibles",
+    "subtitle": "Asegura tu lugar para una creación personalizada",
+    "status": {
+      "available": "Disponible",
+      "booked": "Reservado",
+      "limited": "Lugares Limitados"
+    },
+    "week": "Semana",
+    "price": "Precio",
+    "difficulty": "Dificultad",
+    "cta": "Reservar Este Espacio"
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "subtitle": "Reseñas reales de amantes del crochet felices"
+  },
+  "footer": {
+    "copyright": "© 2024 StitchSlots. Todos los derechos reservados.",
+    "tagline": "Hecho con amor, una puntada a la vez."
+  },
+  "booking": {
+    "title": "Elige Tu Semana Mágica",
+    "subtitle": "Selecciona un espacio y cuéntanos sobre tu creación soñada",
+    "steps": {
+      "slot": "Seleccionar Espacio",
+      "details": "Detalles del Proyecto",
+      "confirm": "Confirmar"
+    },
+    "form": {
+      "name": "Nombre Completo",
+      "namePlaceholder": "Ingresa tu nombre",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "phone": "Número de Teléfono",
+      "phonePlaceholder": "+1 (555) 000-0000",
+      "colors": "Colores Preferidos",
+      "colorsPlaceholder": "ej., Rosa, Morado, Blanco",
+      "size": "Tamaño/Dimensiones",
+      "sizePlaceholder": "ej., Pequeño (15 cm), Mediano (25 cm)",
+      "specialRequests": "Solicitudes Especiales",
+      "specialRequestsPlaceholder": "Cualquier detalle específico o personalizaciones...",
+      "submit": "Confirmar Reserva",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "success": "¡Reserva enviada! Recibirás un correo de confirmación pronto."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Intentar de Nuevo",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar"
+  }
+}

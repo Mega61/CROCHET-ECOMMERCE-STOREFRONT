@@ -1,0 +1,84 @@
+{
+  "header": {
+    "logo": "StitchSlots",
+    "nav": {
+      "catalog": "Crochet Catalog",
+      "booking": "Book a Slot",
+      "orders": "My Commissions",
+      "about": "About"
+    },
+    "search": "Search crochet patterns..."
+  },
+  "hero": {
+    "title": "Handcrafted Crochet Magic",
+    "subtitle": "Reserve Your Time Slot for Custom Kawaii Creations",
+    "cta": {
+      "book": "Book Your Slot Now",
+      "browse": "Browse Catalog"
+    }
+  },
+  "featured": {
+    "title": "Featured Creations",
+    "subtitle": "Explore our most loved handmade pieces"
+  },
+  "catalog": {
+    "title": "Crochet Catalog",
+    "subtitle": "Browse by Category"
+  },
+  "slots": {
+    "title": "Available Time Slots",
+    "subtitle": "Secure your spot for a custom creation",
+    "status": {
+      "available": "Available",
+      "booked": "Booked",
+      "limited": "Limited Spots"
+    },
+    "week": "Week",
+    "price": "Price",
+    "difficulty": "Difficulty",
+    "cta": "Book This Slot"
+  },
+  "testimonials": {
+    "title": "What Our Customers Say",
+    "subtitle": "Real reviews from happy crochet lovers"
+  },
+  "footer": {
+    "copyright": "© 2024 StitchSlots. All rights reserved.",
+    "tagline": "Crafted with love, one stitch at a time."
+  },
+  "booking": {
+    "title": "Choose Your Magic Week",
+    "subtitle": "Select a time slot and tell us about your dream creation",
+    "steps": {
+      "slot": "Select Time Slot",
+      "details": "Project Details",
+      "confirm": "Confirm"
+    },
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+1 (555) 000-0000",
+      "colors": "Preferred Colors",
+      "colorsPlaceholder": "e.g., Pink, Purple, White",
+      "size": "Size/Dimensions",
+      "sizePlaceholder": "e.g., Small (6 inches), Medium (10 inches)",
+      "specialRequests": "Special Requests",
+      "specialRequestsPlaceholder": "Any specific details or customizations...",
+      "submit": "Confirm Booking",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "success": "Booking submitted! You'll receive a confirmation email shortly."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete"
+  }
+}

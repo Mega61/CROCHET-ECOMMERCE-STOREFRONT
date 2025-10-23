@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { LanguageSwitcher } from "@/components/language-switcher"
 import { Heart, Search, Calendar, Menu, X } from "lucide-react"
 
 export function Header() {
@@ -57,6 +58,9 @@ export function Header() {
                 2
               </Badge>
             </Button>
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
 
             {/* Mobile Menu Button */}
             <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
